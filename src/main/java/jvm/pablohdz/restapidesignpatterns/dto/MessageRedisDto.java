@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserRequest {
-    private String username;
-    private String message;
+public class MessageRedisDto {
+  private String id;
+  private String content;
 }

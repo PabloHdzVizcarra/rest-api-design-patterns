@@ -17,7 +17,9 @@ public class FacadeService {
 
   public ConversationModel createUser(CreateUserRequest request) {
     String username = request.getUsername();
-    ConversationModel messageConversation = conversationFacade.createMessageConversation(username);
+    String message = request.getMessage();
+    ConversationModel messageConversation =
+            conversationFacade.createMessageConversation(username, message);
     return messageConversation;
   }
 }

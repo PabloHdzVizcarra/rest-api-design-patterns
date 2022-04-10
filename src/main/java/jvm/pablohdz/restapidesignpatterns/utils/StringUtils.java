@@ -11,6 +11,6 @@ public class StringUtils {
     }
     
     public static String generateRandomChar() {
-        return String.valueOf((char) (Math.random() * 26 + 'a'));
+        return String.valueOf((char) (Math.random() * 26 + 'A'));
     }
 }

@@ -1,10 +1,10 @@
-package jvm.pablohdz.restapidesignpatterns.dto;
+package jvm.pablohdz.restapidesignpatterns.object;
 
-import jvm.pablohdz.restapidesignpatterns.entity.UserRedis;
+import jvm.pablohdz.restapidesignpatterns.dto.UserRedisDto;
+import jvm.pablohdz.restapidesignpatterns.entity.UserRedisEntity;
 import jvm.pablohdz.restapidesignpatterns.repository.UserRedisFacadeRepository;
 import jvm.pablohdz.restapidesignpatterns.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,10 +17,11 @@ public class UserConversation {
   }
 
   public UserRedisDto createUser(String name) {
-    String id = "user_" + StringUtils.generateRandomIdWithLength(10);
+    String id = "user_" + StringUtils.generateRandomIdWithLength(8);
 
-    UserRedis userRedis = new UserRedis(id, name, true);
+    UserRedisEntity userRedis = new UserRedisEntity(id, name, true);
+    UserRedisEntity userSaved = repository.save(userRedis);
 
-    return new UserRedisDto(id, name);
+    return new UserRedisDto(userSaved.getId(), userSaved.getName());
   }
 }
