@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserRequest {
-    private String username;
-    private String message;
+public class ChannelDto {
+    private String id;
     private String channel;
+    private String description;
 }
