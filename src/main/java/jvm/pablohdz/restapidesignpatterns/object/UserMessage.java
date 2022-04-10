@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMessage {
+  
+  public static final String MESSAGE_PREFIX_ID = "message_";
   private final MessageRedisFacadeRepository repository;
 
   @Autowired
@@ -20,7 +22,7 @@ public class UserMessage {
     MessageRedisEntity messageRedisEntity = new MessageRedisEntity();
     messageRedisEntity.setContent(message);
     messageRedisEntity.setAuthor("john");
-    messageRedisEntity.setId("message_" + StringUtils.generateRandomIdWithLength(8));
+    messageRedisEntity.setId(MESSAGE_PREFIX_ID + StringUtils.generateRandomIdWithLength(8));
 
     MessageRedisEntity save = repository.save(messageRedisEntity);
 

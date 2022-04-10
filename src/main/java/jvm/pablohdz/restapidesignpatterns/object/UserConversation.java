@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserConversation {
+  
+  public static final String USER_PREFIX_ID = "user_";
   private final UserRedisFacadeRepository repository;
 
   @Autowired
@@ -17,7 +19,7 @@ public class UserConversation {
   }
 
   public UserRedisDto createUser(String name) {
-    String id = "user_" + StringUtils.generateRandomIdWithLength(8);
+    String id = USER_PREFIX_ID + StringUtils.generateRandomIdWithLength(8);
 
     UserRedisEntity userRedis = new UserRedisEntity(id, name, true);
     UserRedisEntity userSaved = repository.save(userRedis);

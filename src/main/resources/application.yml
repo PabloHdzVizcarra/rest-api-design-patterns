@@ -1,5 +1,5 @@
 spring:
   redis:
-    host: 129.153.102.237
+    host: your host
     port: 6379
     database: 0
