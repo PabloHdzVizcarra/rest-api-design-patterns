@@ -11,5 +11,6 @@ public class ChargeFlyweightDto {
   private String name;
   private String id;
   private Integer companyId;
+  private String type;
   private PriceFlyweight price;
 }

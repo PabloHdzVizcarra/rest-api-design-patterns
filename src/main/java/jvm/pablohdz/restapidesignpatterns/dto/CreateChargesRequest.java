@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class CreateChargesRequest {
   private Integer companyId;
   private List<Integer> listPrices;
+  private String typeCharge;
 }
