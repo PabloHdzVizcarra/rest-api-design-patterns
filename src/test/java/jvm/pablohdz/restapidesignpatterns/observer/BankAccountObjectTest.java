@@ -75,6 +75,5 @@ class BankAccountObjectTest {
     bankAccountObject.register(observerBankGoodAccount);
     bankAccountObject.notifyRegisteredBankAccounts(notification);
     
-    // Assert
   }
 }
