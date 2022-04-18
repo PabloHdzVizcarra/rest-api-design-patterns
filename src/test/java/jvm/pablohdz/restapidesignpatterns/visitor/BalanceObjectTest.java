@@ -50,14 +50,14 @@ class BalanceObjectTest {
     balanceObject.verifyAmountsWithDiscountOfTheDay();
     
     List<VisitorAmountDto> amountsWithDiscountList =  balanceObject.getAmountsWithDiscount();
-    
-    assertEquals(amountsWithDiscountList.size(), 5);
-    assertEquals(balanceObject.getObject(), "balance");
-    assertEquals(amountsWithDiscountList.get(0).getAmount(), 10);
-    assertEquals(amountsWithDiscountList.get(1).getAmount(), 118);
-    assertEquals(amountsWithDiscountList.get(2).getAmount(), 67);
-    assertEquals(amountsWithDiscountList.get(3).getAmount(), 1024);
-    assertEquals(amountsWithDiscountList.get(4).getAmount(), 44);
+
+    assertEquals(5, amountsWithDiscountList.size());
+    assertEquals("balance", balanceObject.getObject());
+    assertEquals(10, amountsWithDiscountList.get(0).getAmount());
+    assertEquals(118, amountsWithDiscountList.get(1).getAmount());
+    assertEquals(67, amountsWithDiscountList.get(2).getAmount());
+    assertEquals(1024, amountsWithDiscountList.get(3).getAmount());
+    assertEquals(44, amountsWithDiscountList.get(4).getAmount());
   }
 
   @Test
