@@ -16,7 +16,9 @@ class BankAccountObjectTest {
 
     // Act
     ObserverBankBadAccount observerBankBadAccount = Mockito.spy(new ObserverBankBadAccount());
+    observerBankBadAccount.setHistory(MasterBankAccountHistory.getInstance());
     ObserverBankGoodAccount observerBankGoodAccount = Mockito.spy(new ObserverBankGoodAccount());
+    observerBankGoodAccount.setHistory(MasterBankAccountHistory.getInstance());
 
     bankAccountObject.register(observerBankBadAccount);
     bankAccountObject.register(observerBankGoodAccount);
@@ -40,11 +42,12 @@ class BankAccountObjectTest {
   
     // Act
     ObserverBankBadAccount observerBankBadAccount = Mockito.spy(new ObserverBankBadAccount());
+    observerBankBadAccount.setHistory(MasterBankAccountHistory.getInstance());
     ObserverBankGoodAccount observerBankGoodAccount = Mockito.spy(new ObserverBankGoodAccount());
+    observerBankGoodAccount.setHistory(MasterBankAccountHistory.getInstance());
   
     bankAccountObject.register(observerBankBadAccount);
     bankAccountObject.register(observerBankGoodAccount);
-
     bankAccountObject.notifyRegisteredBankAccounts(notification);
 
     // Assert
@@ -70,10 +73,38 @@ class BankAccountObjectTest {
     
     // Act
     ObserverBankBadAccount observerBankBadAccount = Mockito.spy(new ObserverBankBadAccount());
+    observerBankBadAccount.setHistory(MasterBankAccountHistory.getInstance());
     ObserverBankGoodAccount observerBankGoodAccount = Mockito.spy(new ObserverBankGoodAccount());
+    observerBankGoodAccount.setHistory(MasterBankAccountHistory.getInstance());
     bankAccountObject.register(observerBankBadAccount);
     bankAccountObject.register(observerBankGoodAccount);
     bankAccountObject.notifyRegisteredBankAccounts(notification);
+  }
+
+  @Test
+  void givenBankAccount_whenTwoOperationsPerformed_thenHistoryHaveOperations() {
+    // Arrange
+    String id = "ba_" + StringUtils.generateRandomIdWithLength(10);
+    BankAccountObject bankAccountObject = new BankAccountObject(id, 100, "Personal Bank Account");
+    ObserverNotificationDto notification =
+        new ObserverNotificationDto(NotificationTypeEnum.EXPENDITURE, 50);
     
+    // Act
+    ObserverBankBadAccount observerBankBadAccount = Mockito.spy(new ObserverBankBadAccount());
+    observerBankBadAccount.setHistory(MasterBankAccountHistory.getInstance());
+    ObserverBankGoodAccount observerBankGoodAccount = Mockito.spy(new ObserverBankGoodAccount());
+    observerBankGoodAccount.setHistory(MasterBankAccountHistory.getInstance());
+    
+    bankAccountObject.register(observerBankBadAccount);
+    bankAccountObject.register(observerBankGoodAccount);
+    bankAccountObject.notifyRegisteredBankAccounts(notification);
+    bankAccountObject.notifyRegisteredBankAccounts(notification);
+    
+    // Assert
+    assertEquals(4, MasterBankAccountHistory.getHistoryById(id).size());
+    // must be greater than one because each test generate operations
+    assertEquals(3, MasterBankAccountHistory.getIdsOperations().size());
+    Mockito.verify(observerBankBadAccount, Mockito.times(2)).update(notification);
+    Mockito.verify(observerBankGoodAccount, Mockito.times(2)).update(notification);
   }
 }

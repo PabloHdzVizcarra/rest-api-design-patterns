@@ -7,15 +7,13 @@ public class BankAccountObject implements BankAccount {
   private final String id;
   private final double balance;
   private final String name;
-  private List<OperationDto> operationsHistory;
-  private List<ObserverBank> observers;
+  private final List<ObserverBank> observers;
 
   public BankAccountObject(String id, double balance, String name) {
     this.id = id;
     this.balance = balance;
     this.name = name;
     this.observers = new ArrayList<>();
-    this.operationsHistory = new ArrayList<>();
   }
 
   @Override
@@ -30,6 +28,9 @@ public class BankAccountObject implements BankAccount {
 
   @Override
   public void notifyRegisteredBankAccounts(ObserverNotificationDto notification) {
+    notification.setBalance(balance);
+    notification.setNameBankAccount(name);
+    notification.setIdBankAccount(id);
     this.observers.forEach(observer -> observer.update(notification));
   }
 }

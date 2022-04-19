@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class MasterBankAccountHistory {
   private static MasterBankAccountHistory masterBankAccount;
@@ -21,12 +22,12 @@ public class MasterBankAccountHistory {
     return masterBankAccount;
   }
   
-  public static void setOperationById(String id, OperationDto operation) {
+  public void setOperationById(String id, OperationDto operation) {
     createListIfNotExists(id);
     operationsHistory.get(id).add(operation);
   }
   
-  private static void createListIfNotExists(String id) {
+  private void createListIfNotExists(String id) {
     if (!operationsHistory.containsKey(id)) {
       operationsHistory.put(id, new ArrayList<>());
     }
@@ -35,4 +36,9 @@ public class MasterBankAccountHistory {
   public static List<OperationDto> getHistoryById(String id) {
     return operationsHistory.get(id);
   }
+  
+  public static Set<String> getIdsOperations() {
+    return operationsHistory.keySet();
+  }
+  
 }
