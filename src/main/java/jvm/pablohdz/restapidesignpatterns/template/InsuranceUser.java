@@ -1,0 +1,14 @@
+package jvm.pablohdz.restapidesignpatterns.template;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class InsuranceUser {
+  private String name;
+  private int numberOfAccidentsInTheYear;
+  private InsurancePolicy policy;
+}
