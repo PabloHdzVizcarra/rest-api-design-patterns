@@ -107,4 +107,29 @@ class BankAccountObjectTest {
     Mockito.verify(observerBankBadAccount, Mockito.times(2)).update(notification);
     Mockito.verify(observerBankGoodAccount, Mockito.times(2)).update(notification);
   }
+
+  @Test
+  void givenBankAccountWithOneHundredDollars_whenExpenditureOfSixteenDollars_thenSendYellowNotification() {
+    // Arrange
+    String id = "ba_" + StringUtils.generateRandomIdWithLength(10);
+    BankAccountObject bankAccountObject = new BankAccountObject(id, 100, "Personal Bank Account");
+    ObserverNotificationDto notification =
+        new ObserverNotificationDto(NotificationTypeEnum.EXPENDITURE, 60);
+    
+    // Act
+    ObserverBankBadAccount observerBankBadAccount = Mockito.spy(new ObserverBankBadAccount());
+    observerBankBadAccount.setHistory(MasterBankAccountHistory.getInstance());
+    ObserverBankGoodAccount observerBankGoodAccount = Mockito.spy(new ObserverBankGoodAccount());
+    observerBankGoodAccount.setHistory(MasterBankAccountHistory.getInstance());
+    
+    bankAccountObject.register(observerBankBadAccount);
+    bankAccountObject.register(observerBankGoodAccount);
+    bankAccountObject.notifyRegisteredBankAccounts(notification);
+    
+    // Assert
+    Mockito.verify(observerBankBadAccount, Mockito.times(1)).update(notification);
+    Mockito.verify(observerBankGoodAccount, Mockito.times(1)).update(notification);
+    assertEquals(2, MasterBankAccountHistory.getHistoryById(id).size());
+  
+  }
 }

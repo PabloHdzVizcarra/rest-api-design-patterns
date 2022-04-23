@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OperationDto {
-  private String nameOperation;
-  private double costOperation;
+  private String message;
   private NotificationTypeEnum notificationType;
+  private HistoryTypeNotification type;
 }

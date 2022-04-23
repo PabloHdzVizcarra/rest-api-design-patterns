@@ -9,7 +9,7 @@ public class ObserverBankGoodAccount implements ObserverBank {
   @Override
   public void update(ObserverNotificationDto notification) {
     OperationDto operationDto =
-        new OperationDto("EXPENDITURE", notification.getPrice(), notification.getTypeNotification());
+        new OperationDto("Good Account", notification.getTypeNotification(), HistoryTypeNotification.GREEN_NOTIFICATION);
     history.setOperationById(notification.getIdBankAccount(), operationDto);
   }
 }

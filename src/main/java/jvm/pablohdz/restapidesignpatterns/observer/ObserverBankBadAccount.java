@@ -1,5 +1,7 @@
 package jvm.pablohdz.restapidesignpatterns.observer;
 
+import jvm.pablohdz.restapidesignpatterns.utils.AmountUtils;
+
 public class ObserverBankBadAccount implements ObserverBank {
   private MasterBankAccountHistory history;
 
@@ -9,8 +11,12 @@ public class ObserverBankBadAccount implements ObserverBank {
 
   @Override
   public void update(ObserverNotificationDto notification) {
-    OperationDto operationDto =
-        new OperationDto("EXPENDITURE", notification.getPrice(), NotificationTypeEnum.EXPENDITURE);
-    history.setOperationById(notification.getIdBankAccount(), operationDto);
+    if (notification.getPrice() > AmountUtils.getPercent(notification.getPrice(), 50)) {
+      OperationDto operationDto = new OperationDto();
+      operationDto.setMessage("your account is in warning state");
+      operationDto.setType(HistoryTypeNotification.YELLOW_NOTIFICATION);
+      operationDto.setNotificationType(notification.getTypeNotification());
+      history.setOperationById(notification.getIdBankAccount(), operationDto);
+    }
   }
 }
